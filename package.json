@@ -1,0 +1,22 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "JsonPackage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xxDIERxx/ApplicationInterview.git"
+  },
+  "keywords": [
+    "Json"
+  ],
+  "author": "Reid Schrein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xxDIERxx/ApplicationInterview/issues"
+  },
+  "homepage": "https://github.com/xxDIERxx/ApplicationInterview#readme"
+}
