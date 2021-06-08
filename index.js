@@ -1,10 +1,6 @@
-const express = require("express");                 //main express module
-const ejs = require('ejs');                         //for html js templates
-const flash = require('express-flash');             //allows for sending messages to ejs - errors, etc.
-const session = require('express-session');         //creates and manages sessions
-
-var fs = require('fs');
+const fs = require('fs');
 const readline = require('readline');
+const path = require('path');
 
 const app = express();                              //create express app
 app.set('view engine', 'ejs');                      //set rendering engine to ejs
