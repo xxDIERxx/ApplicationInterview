@@ -1,15 +1,11 @@
 exports.printMsg = function(){
-    console.log("This is a message from the demo package");
+    console.log("Connecting");
 }
 
 const express = require("express");                 //main express module
 const ejs = require('ejs');                         //for html js templates
 const flash = require('express-flash');             //allows for sending messages to ejs - errors, etc.
 const session = require('express-session');         //creates and manages sessions
-const passport = require('./authentication.js')(    //authentication module that sets up passport and returns it
-    Users.getByName,
-    Users.getById
-);
 
 var fs = require('fs');
 const readline = require('readline');

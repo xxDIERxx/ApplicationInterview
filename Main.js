@@ -1,7 +1,17 @@
-const fs = require('fs');
-const readline = require('readline');
-const readInterface = readline.createInterface({
-    input: fs.createReadStream('/'),
-    output: process.stdout,
-    console: false
+$(document).ready(function(){
+
 });
+
+const fs = require('fs)')
+
+fs.readFile('/Interview/Documents.csv' ,'urf8', (err, data) =>{
+    if (err){
+        console.error(err)
+        return
+    }
+    console.log(data)
+})
+
+
+
+
