@@ -11,6 +11,9 @@ const passport = require('./authentication.js')(    //authentication module that
     Users.getById
 );
 
+var fs = require('fs');
+const readline = require('readline');
+
 const app = express();                              //create express app
 app.set('view engine', 'ejs');                      //set rendering engine to ejs
 
