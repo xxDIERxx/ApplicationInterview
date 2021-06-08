@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    const fs = require('fs')
+    const fs = require('fs');
     fs.readFile('Documents.csv' ,'urf8', (err, data) =>{
         if (err){
             console.error(err)
