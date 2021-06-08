@@ -1,7 +1,3 @@
-exports.printMsg = function(){
-    console.log("Connecting");
-}
-
 const express = require("express");                 //main express module
 const ejs = require('ejs');                         //for html js templates
 const flash = require('express-flash');             //allows for sending messages to ejs - errors, etc.
