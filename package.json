@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "JsonPackage",
   "main": "index.js",
-  "type": "commonjs",
   "scripts": {
     "start": "http-server",
     "test": "echo \"Error: no test specified\" && exit 1"
