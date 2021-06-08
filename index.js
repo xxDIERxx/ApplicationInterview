@@ -2,9 +2,6 @@ const fs = require('fs');
 const readline = require('readline');
 const path = require('path');
 
-
-
-
 app.use(flash());
 app.use(session({
     secret: process.env.SESSION_SECRET,
