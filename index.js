@@ -2,8 +2,8 @@ const fs = require('fs');
 const readline = require('readline');
 const path = require('path');
 
-const app = express();                              //create express app
-app.set('view engine', 'ejs');                      //set rendering engine to ejs
+
+
 
 app.use(flash());
 app.use(session({
