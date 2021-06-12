@@ -34,15 +34,19 @@ for (let i = 1; i < array.length - 1; i++) {
   result.push(obj);
 
 }
-   console.log(result);
+   //console.log(result);
 // Convert the resultant array to json and
 // generate the JSON output file.
 let json = JSON.stringify(result);
 fs.writeFileSync('output.json', json);
+console.log(json);
 
-app.get('/', (req, res) => {
+app.get('/Home', (req, res) => {
     res.sendFile(path.join(__dirname, '/Main.html'));
 });
 
+app.get('/getJSON',(req, res) =>{
+  res.send(json);
+});
 
 

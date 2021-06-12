@@ -2,7 +2,7 @@
 <html>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type = "text/javascript" src="/index.js"></script>
+
 <script src="/Main.js"></script>
 
 
@@ -38,17 +38,43 @@
 <h1>Document Viewer</h1>
 </head>
 
-<body id = "Body" onload="createTable()">
-    <p>
-        <input type="button" id ="addRow" value="Add New Row" onclick="addRow()"/>
-    </p>
-    <div id="cont"></div>
-    <p><input type="button" id = "bt" value="submit Data" onclick="submit()"/></p>
+<body id = "body">
+    <div id="dvTable"></div>
+    <p><input type="button" id = "bt" value="Generate Table" onclick="GenerateTable()"/></p>
 
 <br>
 
-<script>
-    var arrHead = new Array();
+<script type = "text/javascript" src="/index.js">
+
+function GenerateTable(){
+
+var json = 
+
+var table = document.createElement("table");
+var columnCount = json[0].length;
+
+//add the header
+var row = table.insertRow(-1);
+for (var i=0; i<columnCount; i++){
+  var headerCell = document.createElement("th");
+  headerCell.innerHTML = json[0][i];
+  row.appendChild(headerCell);
+}
+
+for (var i=1; i<json.length; i++){
+  row = table.insertRow(-1);
+  for(var j=0; j<columnCount; j++){
+    var cell = row.insertCell(-1);
+    cell.innerHTML = customers[i][j];
+  }
+}
+
+var dvTable = document.getElementById("dvTable");
+dvTable.innerHTML = "";
+dvTable.appendChild(table);
+}
+
+    /*var arrHead = new Array();
     arrHead = ['', 'Name', 'Path', 'Category']; // table headers.
 
     // first create a TABLE structure by adding few headers.
@@ -128,7 +154,7 @@
         
         // finally, show the result in the console.
         console.log(arrValues);
-    }
+    }*/
 </script>
 </body>
 
