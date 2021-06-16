@@ -1,160 +1,120 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script src="/Main.js"></script>
 
 
 <style>
-    table 
-    {
-        width: 100%;
-    }
-    table, th, td 
-    {
-        border: solid 1px #DDD;
-        border-collapse: collapse;
-        padding: 2px 3px;
-        text-align: center;
-    }
-  
-    input[type='button'] 
-    {
-        cursor: pointer;
-        border: none;
-        color: rgb(0, 0, 0);
-    }
-    
-    input[type='text'], select 
-    {
-        text-align: center;
-        border: solid 1px #CCC;
-        width: auto;
-        padding: 2px 3px;
-    }
+
 </style>
 
 <h1>Document Viewer</h1>
 </head>
 
 <body id = "body">
-    <div id="dvTable"></div>
-    <p><input type="button" id = "bt" value="Generate Table" onclick="GenerateTable()"/></p>
+    <div class="container">
+        <div class="table-responsive">
+            <h1 text-align="center"> Table</h1>
+            <br />
+            <div text-align="center">
+                <!--<button type="button" name="add_file" id="add_file" class="btn btn-info">Add File</button>
+                <button type="button" name="delete_file" id="delete_file" class="btn btn-info">Delete File</button>
+                <button type="button" name="edit_file" id="edit_file" class="btn btn-info">Edit File</button>-->
+            </div>
+            <form enctype="multipart/form-data">
+            <input type ="file" id = "inputFile" name ="foo">
+            <select id ='category'>
+            <option value="Supporting Documents">Supporting Documents</option>
+            <option value="Signatures">Signatures</option>
+            </select>
+            <input type ='submit' name = "Upload" value ="Upload" onclick="onFileSubmit();">
+            </form>
+            
+
+               <br />
+               <div id="file_table">
+               </div>
+        </div>
+    </div>
+    
 
 <br>
 
-<script type = "text/javascript" src="/index.js">
+<!--<script type = "text/javascript" src="/index.js">-->
 
-function GenerateTable(){
+    <script>
+        $(document).ready(function(){
+          $.ajax({
+           url: '/Interview/Documents.csv',
+           dataType:"text",
+           success:function(data)
+           {
+            var File_Data = data.split(/\r?\n|\r/);
+            //console.log(File_Data);
+            var table_data = '<table class="table table-bordered table-striped" id="fileList">';
+            for(var count = 0; count<File_Data.length; count++)
+            {
+             var cell_data = File_Data[count].split(",");
+             table_data += '<tbody>';
+             table_data += '<tr>';
+             for(var cell_count=0; cell_count<=cell_data.length; cell_count++)
+             {
+               if(count === 0 && cell_count === cell_data.length)
+              {
+               table_data += '<th>Control</th>';
+              }
+              else if (count === 0){
+                table_data += '<td>'+cell_data[cell_count]+'</td>';
+              }
+              else if (cell_count === cell_data.length){
+                  table_data += '<td><button>Link</button>  <button>Delete</button><td>';
+              }
+              else
+              {
+               table_data += '<td>'+cell_data[cell_count]+'</td>';
+              }
+             }
+             table_data += '</tr>';
+            }
+            table_data += '</tbody>';
+            table_data += '</table>';
+            $('#file_table').html(table_data);
+           }
+          });
 
-//somehow get the JSON object here so the script can read its contents and post in table
-var table = document.createElement("table");
-var columnCount = json[0].length;
+        });
 
-//add the header
-var row = table.insertRow(-1);
-for (var i=0; i<columnCount; i++){
-  var headerCell = document.createElement("th");
-  headerCell.innerHTML = json[0][i];
-  row.appendChild(headerCell);
-}
-
-for (var i=1; i<json.length; i++){
-  row = table.insertRow(-1);
-  for(var j=0; j<columnCount; j++){
-    var cell = row.insertCell(-1);
-    cell.innerHTML = customers[i][j];
-  }
-}
-
-var dvTable = document.getElementById("dvTable");
-dvTable.innerHTML = "";
-dvTable.appendChild(table);
-}
-
-    /*var arrHead = new Array();
-    arrHead = ['', 'Name', 'Path', 'Category']; // table headers.
-
-    // first create a TABLE structure by adding few headers.
-    function createTable() {
-        var empTable = document.createElement('table');
-        empTable.setAttribute('id', 'empTable');  // table id.
-
-        var tr = empTable.insertRow(-1);
-
-        for (var h = 0; h < arrHead.length; h++) {
-            var th = document.createElement('th'); // the header object.
-            th.innerHTML = arrHead[h];
-            tr.appendChild(th);
+        function onFileSubmit(){
+            var formData = readFileData();
+            insertNewRecord(formData);
+        }
+        function readFileData(){
+            var formData =[];
+            formData += document.getElementById("inputFile").value;
+            //console.log(formData);
+            return formData;
         }
 
-        var div = document.getElementById('cont');
-        div.appendChild(empTable);    // add table to a container.
-    }
+        function insertNewRecord(data){
+            newFilePath = data;
+            console.log(newFilePath);
 
-    // function to add new row.
-    function addRow() {
-        var empTab = document.getElementById('empTable');
+            $.ajax({
+           url: '/Interview/Documents.csv',
+           dataType:"text",
+           success:function(data)
+           {
+            var File_Data = data.split(/\r?\n|\r/);
+            console.log(data);
+            console.log(File_Data)
 
-        var rowCnt = empTab.rows.length;    // get the number of rows.
-        var tr = empTab.insertRow(rowCnt); // table row.
-        tr = empTab.insertRow(rowCnt);
+           }
+        });
 
-        for (var c = 0; c < arrHead.length; c++) {
-            var td = document.createElement('td');          // TABLE DEFINITION.
-            td = tr.insertCell(c);
+        };
+        </script>
 
-            if (c == 0) {   // if its the first column of the table.
-                // add a button control.
-                var button = document.createElement('input');
-
-                // set the attributes.
-                button.setAttribute('type', 'button');
-                button.setAttribute('value', 'Remove');
-
-                // add button's "onclick" event.
-                button.setAttribute('onclick', 'removeRow(this)');
-
-                td.appendChild(button);
-            }
-            else {
-                // the 2nd, 3rd and 4th column, will have textbox.
-                var ele = document.createElement('input');
-                ele.setAttribute('type', 'text');
-                ele.setAttribute('value', '');
-
-                td.appendChild(ele);
-            }
-        }
-    }
-
-    // function to delete a row.
-    function removeRow(oButton) {
-        var empTab = document.getElementById('empTable');
-        empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
-    }
-
-    // function to extract and submit table data.
-    function submit() {
-        var myTab = document.getElementById('empTable');
-        var arrValues = new Array();
-
-        // loop through each row of the table.
-        for (row = 1; row < myTab.rows.length - 1; row++) {
-            // loop through each cell in a row.
-            for (c = 0; c < myTab.rows[row].cells.length; c++) {
-                var element = myTab.rows.item(row).cells[c];
-                if (element.childNodes[0].getAttribute('type') == 'text') {
-                    arrValues.push("'" + element.childNodes[0].value + "'");
-                }
-            }
-        }
-        
-        // finally, show the result in the console.
-        console.log(arrValues);
-    }*/
-</script>
 </body>
 
 </html>
